@@ -12,6 +12,7 @@ namespace FriedElements.Elements
         {
             Color = new Color(28, 163, 236, 128);
             Density = 1000;
+            DispersionRate = 5;
         }
         public override bool ReciveHeat(CellularMatrix matrix, int heat) 
         {

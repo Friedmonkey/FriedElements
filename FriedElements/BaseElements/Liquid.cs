@@ -16,7 +16,6 @@ namespace FriedElements.Elements
             TryMove(matrix, MatrixX, MatrixY - 1);
 
             var targetCell = matrix.Get(MatrixX, MatrixY - 1);
-
             if (targetCell is Solid or Liquid)
             {
                 if (targetCell is Liquid otherLiquid)
@@ -24,15 +23,49 @@ namespace FriedElements.Elements
                     if (this.Density > otherLiquid.Density) return;
                 }
                 bool moveLeftFirst = RandomBool();
-                int moveDirection = moveLeftFirst ? 1 : -1;
-
-                //try to move
-                bool alreadyMoved = TryMove(matrix, MatrixX + moveDirection, MatrixY - 1, true);
-
-                //if you heavent moved try to move the other way
+                bool alreadyMoved = false;
+                for (int i = 1; i < DispersionRate; i++)
+                {
+                    int moveDirection = moveLeftFirst ? i : -i;
+                    var canPass = isPassable(matrix.Get(MatrixX + moveDirection, MatrixY));
+                    if (canPass) 
+                    {
+                        alreadyMoved = TryMove(matrix, MatrixX + moveDirection, MatrixY);
+                    }
+                    else break;
+                }
                 if (!alreadyMoved)
-                    TryMove(matrix, MatrixX + moveDirection, MatrixY - 1, true);
+                {
+                    for (int i = 1; i < DispersionRate; i++)
+                    {
+                        int moveDirection = moveLeftFirst ? i : -i;
+                        var canPass = isPassable(matrix.Get(MatrixX + moveDirection, MatrixY));
+                        if (canPass)
+                        {
+                            TryMove(matrix, MatrixX + moveDirection, MatrixY);
+                        }
+                        else break;
+                    }
+                }
+                ////try to move
+                //bool alreadyMoved = TryMove(matrix, MatrixX + moveDirection, MatrixY - 1, true);
+
+                ////if you heavent moved try to move the other way
+                //if (!alreadyMoved)
+                //    TryMove(matrix, MatrixX + moveDirection, MatrixY - 1, true);
             }
+        }
+        private bool isPassable(Element element)
+        {
+            if (element is Empty or Liquid)
+            {
+                if (element is Liquid otherLiquid)
+                {
+                    if (otherLiquid.Density >= this.Density) return false;
+                }
+                return true;
+            }
+            return false;
         }
         private bool TryMove(CellularMatrix matrix, int targetX, int targetY, bool diagonally = false)
         {
@@ -40,22 +73,24 @@ namespace FriedElements.Elements
             if (diagonally)
             {
                 targetCell = matrix.Get(targetX, targetY + 1);
-                if (targetCell is Empty or Liquid)
+                if (isPassable(targetCell))
                 {
-                    if (targetCell is Liquid otherLiquid)
-                    {
-                        if (otherLiquid.Density >= this.Density) return false;
-                    }
                     SwapPositions(matrix, targetX, targetY + 1);
                     return true;
                 }
+                else return false;
+                //if (targetCell is Empty or Liquid)
+                //{
+                //    if (targetCell is Liquid otherLiquid)
+                //    {
+                //        if (otherLiquid.Density >= this.Density) return false;
+                //    }
+                //    SwapPositions(matrix, targetX, targetY + 1);
+                //    return true;
+                //}
             }
-            else if (targetCell is Empty or Liquid)
+            else if (isPassable(targetCell))
             {
-                if (targetCell is Liquid otherLiquid)
-                {
-                    if (otherLiquid.Density >= this.Density) return false;
-                }
                 SwapPositions(matrix, targetX, targetY);
                 return true;
             }
