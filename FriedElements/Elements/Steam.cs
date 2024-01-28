@@ -8,5 +8,9 @@ namespace FriedElements.Elements
 {
     internal class Steam : Gas
     {
+        public Steam() 
+        {
+            Color = new Color(116, 204, 244, 128);
+        }
     }
 }

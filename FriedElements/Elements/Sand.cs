@@ -1,4 +1,4 @@
-﻿using SFML.Graphics;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace FriedElements.Elements
 
         public Sand()
         {
-            Color = Color.Yellow;
+            Color = new Color(230, 230, 25);
         }
     }
 }

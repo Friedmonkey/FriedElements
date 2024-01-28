@@ -1,5 +1,4 @@
-﻿using SFML.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +11,7 @@ namespace FriedElements.Elements
         //public override Color Color { get; set; }
         public Stone() 
         {
-            Color = new Color(128,128,128);
+            Color = new Color(136, 140, 141);
         }
         public override bool ReciveHeat(CellularMatrix matrix, int heat)
         {

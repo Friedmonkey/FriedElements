@@ -8,5 +8,9 @@ namespace FriedElements.Elements
 {
     internal class Smoke : Gas
     {
+        public Smoke() 
+        {
+            Color = new Color(132, 136, 132, 128);
+        }
     }
 }

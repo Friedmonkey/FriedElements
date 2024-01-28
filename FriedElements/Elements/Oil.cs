@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FriedElements.Elements
 {
-    public class Water : Liquid
+    public class Oil : Liquid
     {
-        public Water() 
+        public Oil() 
         {
-            Color = new Color(28, 163, 236, 128);
-            Density = 1000;
+            Color = new Color(219, 207, 92, 128);
+            Density = 800;
         }
         public override bool ReciveHeat(CellularMatrix matrix, int heat) 
         {

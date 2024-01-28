@@ -14,9 +14,15 @@ internal class Program
         new Sand(),
         new Stone(),
         new Water(),
+        new Oil(),
+
+        new Steam(),
+        new Smoke(),
+
         new Empty(),
     };
-    public const int waitTime = 250;
+    //public const int waitTime = 250;
+    public const int waitTime = 100;
     public const int gridSize = 20;
     public const int Scale = 800;
     public const int size = gridSize * gridSize;
