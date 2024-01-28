@@ -8,14 +8,15 @@ using System.Collections;
 
 internal class Program
 {
-    public const int waitTime = 1000;
+    public const int waitTime = 250;
     public const int gridSize = 20;
-    public const int Scale = 1000;
+    public const int Scale = 800;
     public const int size = gridSize * gridSize;
     //public static Grid Grid = new Grid(gridSize);
     public static CellularMatrix Matrix = new CellularMatrix(gridSize);
     public static bool running = false;
     public static RenderWindow RW;
+    public static Element SelectedElement = new Sand();
 
     private static void Main(string[] args)
     {
@@ -26,11 +27,15 @@ internal class Program
         var window = new PixelWindow(gridSize, gridSize, Scale / gridSize, "FriedElements", appManager,
             fixedTimestep: 20, framerateLimit: 300, debugInfo:false);
 
-        //RW = window.GetRenderWindow();
-        //RW.MouseButtonPressed += RW_MouseButtonPressed;
+        RW = window.GetRenderWindow();
+        RW.MouseButtonPressed += RW_MouseButtonPressed;
 
+        Matrix.Set(0, 0, new Stone());
+        Matrix.Set(19, 19, new Sand());
         Matrix.Set(5, 5, new Sand());
+        Matrix.Set(4, 2, new Stone());
         Matrix.Set(5, 2, new Stone());
+        Matrix.Set(6, 2, new Stone());
 
         running = true;
         Thread thread = new Thread(new ThreadStart(Stepper));
@@ -123,21 +128,29 @@ internal class Program
     //    }
     //}
 
-    //private static void RW_MouseButtonPressed(object? sender, MouseButtonEventArgs e)
-    //{
-    //    Console.ForegroundColor = ConsoleColor.Cyan;
-    //    //Console.WriteLine($"MouseDown X:{e.X}, Y:{e.Y}");
+    private static void RW_MouseButtonPressed(object? sender, MouseButtonEventArgs e)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        //Console.WriteLine($"MouseDown X:{e.X}, Y:{e.Y}");
 
-    //    //Console.ForegroundColor = ConsoleColor.Red;
-    //    var newX = e.Y / (Scale / gridSize);
-    //    var newY = e.X / (Scale / gridSize);
-    //    Console.WriteLine($"MouseDown X:{newX}, Y:{newY}");
-    //    Console.ResetColor();
+        //Console.ForegroundColor = ConsoleColor.Red;
+        var newX = e.X / (Scale / gridSize);
+        var newY = e.Y / (Scale / gridSize);
+        newY = (gridSize - newY)-1;
+        Console.WriteLine($"MouseDown X:{newX}, Y:{newY}");
+        Console.ResetColor();
 
-    //    byte value = (byte)(e.Button == Mouse.Button.Left ? 1 : 0);
+        //Element element = (e.Button == Mouse.Button.Left ? new Stone() : new Sand());
+        Element element = e.Button switch
+        {
+            Mouse.Button.Left => new Stone(),
+            Mouse.Button.Right => new Sand(),
+            Mouse.Button.Middle => new Empty(),
+        };
 
-    //    Grid.SetValue(newX,newY,value);
-    //}
+
+        Matrix.Set(newX, newY, element);
+    }
 
     public static void Stepper()
     {
@@ -175,3 +188,5 @@ class PixelManager : IPixelWindowAppManager
         pixelData.SetBearRawData(Program.Matrix.data);
     }
 }
+
+

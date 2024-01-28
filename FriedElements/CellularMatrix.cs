@@ -33,20 +33,24 @@ namespace FriedElements
             (byte R, byte G, byte B, byte A) = GetValue(x,y);
             return new Color(R, G, B, A);
         }
+        public void SetValueC(int x, int y, Color c) => SetValue(x,y,(c.R, c.G, c.B, c.A));
         private (byte, byte, byte, byte) GetValue(int x, int y)
         {
+            int newY = ((gridSize - y) - 1);
+            int newX = x;
             // Calculate the index in the 1D array
-            int index = (x * gridSize + y) * 4;
+            int index = (newY * gridSize + newX) * 4;
 
             // Access the value in the 1D array
             return (data[index], data[index + 1], data[index + 2], data[index + 3]);
         }
 
-        public void SetValueC(int x, int y, Color c) => SetValue(x,y,(c.R, c.G, c.B, c.A));
         private void SetValue(int x, int y, (byte R, byte G, byte B, byte A) value)
         {
+            int newY = ((gridSize - y) - 1);
+            int newX = x;
             // Calculate the index in the 1D array
-            int index = (x * gridSize + y) * 4;
+            int index = (newY * gridSize + newX) * 4;
 
             // Set the value in the 1D array
             data[index] = value.R;
