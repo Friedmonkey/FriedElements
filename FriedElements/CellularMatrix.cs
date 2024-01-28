@@ -70,7 +70,7 @@ namespace FriedElements
         }
         public void Set(int x, int y, Element element)
         {
-            if (x < 0 || y < 0 || x > gridSize || y > gridSize)
+            if (x < 0 || y < 0 || x >= gridSize || y >= gridSize)
             { 
                 matrix.Remove((x,y));
                 return;
