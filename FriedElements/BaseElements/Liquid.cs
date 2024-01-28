@@ -24,6 +24,12 @@ namespace FriedElements.Elements
                     var otherCell = matrix.Get(MatrixX, MatrixY + 1);
                     if (otherCell is not Lava)
                         otherCell.ReciveHeat(matrix, 10);
+                    otherCell = matrix.Get(MatrixX+1, MatrixY);
+                    if (otherCell is not Lava)
+                        otherCell.ReciveHeat(matrix, 10);
+                    otherCell = matrix.Get(MatrixX - 1, MatrixY);
+                    if (otherCell is not Lava)
+                        otherCell.ReciveHeat(matrix, 10);
                 }
                 if (targetCell is Liquid otherLiquid)
                 {

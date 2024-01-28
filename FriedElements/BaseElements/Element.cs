@@ -27,7 +27,7 @@ namespace FriedElements.Elements
         {
             if (!this.discolored)
             {
-                var val = .60;
+                var val = .20;
                 this.Color = new Color((byte)(Color.R* val), (byte)(Color.G * val), (byte)(Color.B * val));
                 this.discolored = true;
                 matrix.SetValueC(MatrixX,MatrixY,Color);
