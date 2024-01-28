@@ -13,8 +13,10 @@ internal class Program
     {
         new Sand(),
         new Stone(),
+        new Steel(),
         new Water(),
         new Oil(),
+        new Lava(),
 
         new Steam(),
         new Smoke(),
@@ -64,13 +66,6 @@ internal class Program
 
         var simulationRW = simulationWindow.GetRenderWindow();
         simulationRW.MouseButtonPressed += SimulationRW_MouseButtonPressed;
-
-        Matrix.Set(0, 0, new Stone());
-        Matrix.Set(19, 19, new Sand());
-        Matrix.Set(5, 5, new Sand());
-        Matrix.Set(4, 2, new Stone());
-        Matrix.Set(5, 2, new Stone());
-        Matrix.Set(6, 2, new Stone());
 
         running = true;
         Thread simulationThread = new Thread(new ThreadStart(Stepper));

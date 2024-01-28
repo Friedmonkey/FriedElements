@@ -16,8 +16,15 @@ namespace FriedElements.Elements
             TryMove(matrix, MatrixX, MatrixY - 1);
 
             var targetCell = matrix.Get(MatrixX, MatrixY - 1);
-            if (targetCell is Solid or Liquid)
+            if (targetCell is Solid or Liquid or Gas)
             {
+                if (this is Lava && targetCell is not Lava)
+                {
+                    targetCell.ReciveHeat(matrix,10);
+                    var otherCell = matrix.Get(MatrixX, MatrixY + 1);
+                    if (otherCell is not Lava)
+                        otherCell.ReciveHeat(matrix, 10);
+                }
                 if (targetCell is Liquid otherLiquid)
                 {
                     if (this.Density > otherLiquid.Density) return;
@@ -57,7 +64,7 @@ namespace FriedElements.Elements
         }
         private bool isPassable(Element element)
         {
-            if (element is Empty or Liquid)
+            if (element is Empty or Liquid or Gas)
             {
                 if (element is Liquid otherLiquid)
                 {

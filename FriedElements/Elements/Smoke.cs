@@ -11,6 +11,7 @@ namespace FriedElements.Elements
         public Smoke() 
         {
             Color = new Color(132, 136, 132, 128);
+            Density = 200;
         }
     }
 }

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace FriedElements.Elements
 {
-    internal class Steam : Gas
+    internal class Lava : Liquid
     {
-        public Steam() 
+        public Lava() 
         {
-            Color = new Color(116, 204, 244, 128);
-            Density = 150;
+            Color = new Color(234, 92, 15, 150);
+            Density = 2400;
+            DispersionRate = 2;
         }
     }
 }

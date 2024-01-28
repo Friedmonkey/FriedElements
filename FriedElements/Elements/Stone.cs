@@ -12,10 +12,17 @@ namespace FriedElements.Elements
         public Stone() 
         {
             Color = new Color(136, 140, 141);
+            flamabilityResistance = 10000;
         }
         public override bool ReciveHeat(CellularMatrix matrix, int heat)
         {
-            return false;
+            flamabilityResistance -= heat;
+            if (flamabilityResistance < 0)
+            {
+                DarkenColor(matrix);
+                DieAndReplace(matrix, new Lava());
+            }
+            return true;
         }
     }
 }

@@ -13,10 +13,15 @@ namespace FriedElements.Elements
             Color = new Color(28, 163, 236, 128);
             Density = 1000;
             DispersionRate = 5;
+            flamabilityResistance = 1000;
         }
         public override bool ReciveHeat(CellularMatrix matrix, int heat) 
         {
-            DieAndReplace(matrix,new Steam());
+            flamabilityResistance -= heat;
+            if (flamabilityResistance < 0)
+            {
+                DieAndReplace(matrix, new Steam());
+            }
             return true;
         }
     }

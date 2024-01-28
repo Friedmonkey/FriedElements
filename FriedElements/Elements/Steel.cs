@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FriedElements.Elements
 {
-    internal class Steam : Gas
+    internal class Steel : ImmovableSolid
     {
-        public Steam() 
+        //public override Color Color { get; set; }
+        public Steel() 
         {
-            Color = new Color(116, 204, 244, 128);
-            Density = 150;
+            Color = new Color(36, 40, 41);
         }
     }
 }

@@ -95,6 +95,10 @@ namespace FriedElements
             for (int i = 0; i < matrix.Values.Count; i++)
             {
                 var element = matrix.Values.ElementAt(i);
+                if (element is ImmovableSolid)
+                {
+                    continue;
+                }
                 element.Step(this);
             }
         }
