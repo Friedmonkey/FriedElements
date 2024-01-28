@@ -10,16 +10,25 @@ namespace FriedElements.Elements
     {
         public override void Step(CellularMatrix matrix) 
         {
-            var targetCell = matrix.Get(MatrixX, MatrixY - 1);
-
-            if (targetCell is Empty or Liquid)
+            int posX = MatrixX;
+            int posY = MatrixY - 1;
+            for (int i = 0; i < 3; i++)
             {
-                SwapPositions(matrix, MatrixX, MatrixY - 1);
-            }
+                var targetCell = matrix.Get(posX, posY);
 
-            if (targetCell is Solid)
-            {
-                //SwapPositions(matrix, MatrixX, MatrixY - 1);
+                if (targetCell is Empty or Liquid)
+                {
+                    SwapPositions(matrix, posX, posY);
+                }
+
+                if (targetCell is Solid)
+                {
+                    //SwapPositions(matrix, MatrixX, MatrixY - 1);\
+                    if (i == 0) posX = MatrixX - 1;
+                    if (i == 1) posX = MatrixX + 1;
+                    continue;
+                }
+                break;
             }
         }
     }

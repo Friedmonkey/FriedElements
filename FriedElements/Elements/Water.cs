@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFML.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,10 @@ namespace FriedElements.Elements
 {
     public class Water : Liquid
     {
+        public Water() 
+        {
+            Color = Color.Blue;
+        }
         public override bool ReciveHeat(CellularMatrix matrix, int heat) 
         {
             DieAndReplace(matrix,new Steam());

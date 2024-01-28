@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFML.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace FriedElements.Elements
 {
     public class Empty : Element
     {
+        public Empty() 
+        {
+            Color = Color.Black;
+        }
+
     }
 }
